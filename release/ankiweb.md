@@ -1,3 +1,9 @@
+---
+title: Web Embed Tools
+tags: anki addon editor web embed
+support_url: https://github.com/elvis-sik/anki-web-embed-tools
+---
+
 # Web Embed Tools
 
 Turn a URL in an Anki note into a resizable embedded web view.

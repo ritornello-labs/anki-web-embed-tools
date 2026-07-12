@@ -4,13 +4,20 @@ SHELL := /bin/bash
 PYTHON ?= python3
 UV ?= uv
 ANKI_WORKBENCH ?= anki-workbench
+RELEASE_PROJECT ?= ../anki-addon-release
+RELEASE_ENV_FILE ?= .env
+RELEASE_DIAGNOSTICS_DIR ?= .anki-addon-release/diagnostics
+RELEASE_ARTIFACT ?= dist/web_embed_tools.ankiaddon
+RELEASE_BIN ?= $(RELEASE_PROJECT)/.venv/bin/anki-addon-release
+ANKI_ADDON_RELEASE = $(RELEASE_BIN) --project .
+ANKI_ADDON_RELEASE_BROWSER = op run --env-file=$(RELEASE_ENV_FILE) -- $(RELEASE_BIN) --project .
 
 PY_FILES := $(shell git ls-files --cached --others --exclude-standard '*.py' ':!:out/**' ':!:dist/**' ':!:node_modules/**' ':!:.venv/**' ':!:input/**' ':!:media/**' ':!:backups/**' ':!:templates/**' ':!:drafts/**' ':!:_vendor/**')
 MYPY_FILES := $(shell git ls-files --cached --others --exclude-standard '*.py' ':!:__init__.py' ':!:tests/**' ':!:out/**' ':!:dist/**' ':!:node_modules/**' ':!:.venv/**' ':!:input/**' ':!:media/**' ':!:backups/**' ':!:templates/**' ':!:drafts/**' ':!:_vendor/**')
 JS_FILES := $(shell git ls-files --cached --others --exclude-standard '*.js' '*.mjs' ':!:out/**' ':!:dist/**' ':!:node_modules/**')
 SHELL_FILES := $(shell git ls-files --cached --others --exclude-standard '*.sh')
 
-.PHONY: help lint lint-paths lint-python lint-js lint-shell type test package smoke check
+.PHONY: help lint lint-paths lint-python lint-js lint-shell type test package smoke release release-check release-package release-inspect release-dry-run release-login release-publish check
 
 help:
 	@printf "Available targets:\n"
@@ -19,6 +26,9 @@ help:
 	@printf "  make test   Run unit tests and repository hygiene tests\n"
 	@printf "  make package  Build the installable .ankiaddon archive\n"
 	@printf "  make smoke  Run the disposable Anki GUI smoke test\n"
+	@printf "  make release  Validate, package, inspect, and dry-run AnkiWeb release\n"
+	@printf "  make release-login  Log in to AnkiWeb through the release browser profile\n"
+	@printf "  make release-publish  Fill the AnkiWeb publish form through the release browser\n"
 	@printf "  make check  Run lint, type, and test\n"
 
 lint: lint-paths lint-python lint-js lint-shell
@@ -75,6 +85,26 @@ test:
 
 package:
 	@bash scripts/build_ankiaddon.sh
+
+release: release-check release-package release-inspect release-dry-run
+
+release-check:
+	@$(ANKI_ADDON_RELEASE) check
+
+release-package:
+	@$(ANKI_ADDON_RELEASE) package
+
+release-inspect: release-package
+	@$(ANKI_ADDON_RELEASE) inspect $(RELEASE_ARTIFACT)
+
+release-dry-run: release-package
+	@$(ANKI_ADDON_RELEASE) publish --dry-run
+
+release-login:
+	@$(ANKI_ADDON_RELEASE_BROWSER) login --submit-login --diagnostics-dir $(RELEASE_DIAGNOSTICS_DIR)
+
+release-publish:
+	@$(ANKI_ADDON_RELEASE_BROWSER) publish --diagnostics-dir $(RELEASE_DIAGNOSTICS_DIR)
 
 smoke:
 	@$(ANKI_WORKBENCH) --config-root . smoke

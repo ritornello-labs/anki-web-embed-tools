@@ -1,0 +1,39 @@
+[project]
+name = "anki-web-embed-tools"
+version = "0.2.0"
+description = "Anki add-on for resizable embedded web views in note fields."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.13.0",
+  "ruff>=0.6.0",
+]
+
+[tool.uv]
+exclude-newer = "7 days"
+package = false
+
+[tool.uv.pip]
+exclude-newer = "7 days"
+
+[tool.anki-addon-workbench]
+project_name = "Web Embed Tools"
+addon_package = "web_embed_tools"
+source_root = "."
+include = ["__init__.py", "manifest.json", "wikipedia_embed_core.py"]
+probe_addon = "tests/gui_smoke/probe_addon"
+probe_package = "zz_web_embed_tools_probe"
+anki_version = "25.09.4"
+profile = "User 1"
+docker_image = "web-embed-tools-anki-gui"
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+follow_imports = "skip"
+check_untyped_defs = false

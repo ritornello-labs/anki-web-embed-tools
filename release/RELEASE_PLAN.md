@@ -1,0 +1,31 @@
+# Web Embed Tools 0.2.0 release plan
+
+## Before the release
+
+- [ ] Make `elvis-sik/anki-web-embed-tools` public.
+- [x] Verify `make check`.
+- [x] Verify `make smoke` against Anki 25.09.4 in a disposable profile.
+- [x] Build and inspect `dist/web_embed_tools.ankiaddon`.
+
+## GitHub release
+
+- [ ] Create release `v0.2.0` titled **Web Embed Tools 0.2.0**.
+- [ ] Attach `dist/web_embed_tools.ankiaddon`.
+- [ ] Publish concise release notes: selected-URL and clicked-link conversion,
+  live resize controls, regular and Browser editor support, and Anki 25.09+
+  compatibility.
+- [ ] Install the uploaded archive in a disposable Anki profile once more.
+
+## AnkiWeb
+
+- [ ] Check the available AnkiWeb upload quota.
+- [ ] Submit [ankiweb.md](ankiweb.md) as the listing description.
+- [ ] Add the published AnkiWeb link to the README after the upload succeeds.
+
+## After publishing
+
+- [ ] Confirm the public README, license badge, release asset, and GitHub link
+  render correctly without a signed-in session.
+- [ ] Keep the next feature work separate from `0.2.0`; the initial release is
+  deliberately editor-first and does not include Wikipedia search or bulk
+  conversion.

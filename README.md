@@ -3,6 +3,7 @@
 <p align="center">Turn a link in an Anki note into a tidy, resizable web view.</p>
 
 <p align="center">
+  <a href="https://ankiweb.net/shared/info/1522170627"><img alt="AnkiWeb add-on 1522170627" src="https://img.shields.io/badge/AnkiWeb-1522170627-2f80ed"></a>
   <img alt="Anki 25.09+" src="https://img.shields.io/badge/Anki-25.09%2B-2496ed?logo=anki&logoColor=white">
   <img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776ab?logo=python&logoColor=white">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-3da639"></a>
@@ -16,7 +17,7 @@ floating toolbar for choosing and resizing an embed.
 
 Requires Anki 25.09 or newer.
 
-1. Download `web_embed_tools.ankiaddon` from the [latest release](https://github.com/elvis-sik/anki-web-embed-tools/releases/latest).
+1. Install it from [AnkiWeb](https://ankiweb.net/shared/info/1522170627), or download `web_embed_tools.ankiaddon` from the [latest release](https://github.com/elvis-sik/anki-web-embed-tools/releases/latest).
 2. In Anki, open **Tools → Add-ons → Install from file…** and select it.
 3. Restart Anki.
 

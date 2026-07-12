@@ -5,6 +5,8 @@
 .ruff_cache/
 .uv-cache/
 .tmp/
+.anki-addon-release/
+out/
 __pycache__/
 *.pyc
 *.pyo

@@ -1,7 +1,7 @@
 ---
 title: Web Embed Tools
 tags: anki addon editor web embed
-support_url: https://github.com/elvis-sik/anki-web-embed-tools
+support_url: https://github.com/ritornello-labs/anki-web-embed-tools
 ---
 
 # Web Embed Tools
@@ -16,4 +16,4 @@ Requires Anki 25.09 or newer. Embedded URLs are saved in the note HTML and may
 sync with your collection; use only sites you trust. Some sites block iframe
 embedding, which is expected.
 
-GitHub: [https://github.com/elvis-sik/anki-web-embed-tools](https://github.com/elvis-sik/anki-web-embed-tools)
+GitHub: [https://github.com/ritornello-labs/anki-web-embed-tools](https://github.com/ritornello-labs/anki-web-embed-tools)

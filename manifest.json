@@ -7,5 +7,5 @@
   "author": "Elvis Sik",
   "human_version": "0.2.0",
   "description": "Convert URLs into resizable embedded web views inside Anki notes.",
-  "homepage": "https://github.com/elvis-sik/anki-web-embed-tools"
+  "homepage": "https://github.com/ritornello-labs/anki-web-embed-tools"
 }

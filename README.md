@@ -15,8 +15,8 @@ floating toolbar for choosing and resizing an embed.
 
 ![A selected web embed in Anki's editor, with resize and insertion controls](docs/images/editor-web-embed-toolbar.png)
 
-[Animated tour](https://ritornello.dev/media/ankiweb/2026-07-30/web-embed-tools/preview.gif)
-· [MP4 video](https://ritornello.dev/media/ankiweb/2026-07-30/web-embed-tools/demo.mp4)
+[Real Anki editor interaction](https://ritornello.dev/media/ankiweb/2026-07-31/web-embed-tools/preview.gif)
+· [MP4 video](https://ritornello.dev/media/ankiweb/2026-07-31/web-embed-tools/demo.mp4)
 
 ## Install
 

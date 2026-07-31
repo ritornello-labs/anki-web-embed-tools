@@ -13,7 +13,9 @@ Web Embed Tools adds a small editor workflow for placing web pages directly in
 Anki note fields. It keeps the stored HTML simple, while the editor provides a
 floating toolbar for choosing and resizing an embed.
 
-![A selected web embed in Anki's editor, with resize and insertion controls](docs/images/editor-web-embed-toolbar.png)
+[![Turn a selected URL into a loaded web embed in Anki](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/preview.gif)](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/demo.mp4)
+
+[Browse the full media gallery](https://ritornello.dev/#web-embed-tools).
 
 ## Install
 

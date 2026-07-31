@@ -8,6 +8,18 @@ support_url: https://github.com/ritornello-labs/anki-web-embed-tools
 
 Turn a URL in an Anki note into a resizable embedded web view.
 
+## See it in Anki
+
+![Convert a selected URL into a loaded web embed](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/preview.gif)
+
+![Selected URL in Anki's editor](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/gallery-01.png)
+
+![Create Embed from URL action](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/gallery-02.png)
+
+![Loaded Wikipedia embed](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/gallery-03.png)
+
+[Full-resolution MP4](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/demo.mp4)
+
 Select a raw URL or right-click an existing link, choose **Create Embed from
 URL**, then use the editor toolbar to resize, reposition, or remove it. The
 same workflow works in both the regular note editor and the Browser editor.

@@ -29,3 +29,5 @@ sync with your collection; use only sites you trust. Some sites block iframe
 embedding, which is expected.
 
 GitHub: [https://github.com/ritornello-labs/anki-web-embed-tools](https://github.com/ritornello-labs/anki-web-embed-tools)
+
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).

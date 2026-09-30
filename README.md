@@ -69,3 +69,5 @@ The supporting design notes live in [PLAN.md](PLAN.md),
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+Support continued development: [ritornello.dev/support](https://ritornello.dev/support).

@@ -4,6 +4,10 @@ tags: anki addon editor web embed
 support_url: https://github.com/ritornello-labs/anki-web-embed-tools
 ---
 
+<img src="https://ritornello.dev/media/brand/listing-banner-v1.png" alt="Ritornello" width="700">
+
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
+
 # Web Embed Tools
 
 Turn a URL in an Anki note into a resizable embedded web view.

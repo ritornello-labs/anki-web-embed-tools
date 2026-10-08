@@ -7,7 +7,8 @@ from pathlib import Path
 
 import aqt
 from aqt import gui_hooks, mw
-from aqt.qt import QTimer
+from aqt.qt import QTimer, Qt, QPoint
+from PyQt6.QtTest import QTest
 
 
 RESULT_ENV = "ANKI_ADDON_WORKBENCH_RESULT"
@@ -29,7 +30,7 @@ def _run_checks() -> None:
         hooks_registered = bool(gui_hooks.editor_will_show_context_menu)
         addon = sys.modules.get(ADDON_MODULE)
         add_cards = aqt.dialogs.open("AddCards", mw)
-        add_cards.resize(900, 650)
+        add_cards.resize(1100, 900)
         add_cards.move(0, 0)
         add_cards.show()
         editor = add_cards.editor
@@ -37,24 +38,43 @@ def _run_checks() -> None:
         if note is None or addon is None:
             raise AssertionError("add-cards editor or add-on module was not ready")
 
-        note.fields[0] = addon._embed_insertion_html("https://en.wikipedia.org/wiki/Anki_(software)")
+        url = "https://en.wikipedia.org/wiki/Anki_(software)"
+        note.fields[0] = url
         editor.loadNote(0)
 
         def decorate_select_and_capture() -> None:
-            addon._decorate_editor_embeds(editor)
+            # Exercise selected plain-text insertion, including modern Anki's
+            # shadow-root selection and the actual editor serialization path.
+            editor.web.setFocus()
             editor.web.eval(
-                """
-                (function () {
-                  const root = document.querySelector('.rich-text-editable');
-                  const embed = root && root.querySelector('[data-wiki-embed="1"]');
-                  if (embed) {
-                    embed.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-                  }
-                })();
-                """
+                "require('anki/RichTextInput').instances[0].element.then(root => root.focus())"
             )
 
+            def select_and_insert() -> None:
+                add_cards.activateWindow()
+                add_cards.raise_()
+
+                def click_and_select(rect: dict) -> None:
+                    target = editor.web.focusProxy() or editor.web
+                    QTest.mouseClick(
+                        target, Qt.MouseButton.LeftButton,
+                        Qt.KeyboardModifier.NoModifier,
+                        QPoint(int(rect["x"]), int(rect["y"])),
+                    )
+                    QTest.keyClick(target, Qt.Key.Key_A, Qt.KeyboardModifier.ControlModifier)
+                    QTimer.singleShot(150, lambda: addon._insert_selected_url(editor, url))
+
+                editor.web.evalWithCallback(
+                    "(()=>{const r=document.querySelector('.rich-text-editable').getBoundingClientRect();return {x:r.x+80,y:r.y+r.height/2}})()",
+                    click_and_select,
+                )
+
+            QTimer.singleShot(350, select_and_insert)
+
             def capture_and_finish() -> None:
+                stored_html = editor.note.fields[0]
+                if stored_html.count("<iframe") != 1 or url in stored_html.split("</iframe>")[-1]:
+                    raise AssertionError(f"selected URL was not replaced inside the saved note field: {stored_html!r}")
                 screenshot = os.environ.get("ANKI_ADDON_WORKBENCH_SCREENSHOT")
                 screenshot_ok = False
                 if screenshot:
@@ -72,6 +92,7 @@ def _run_checks() -> None:
                         {"name": "addon module loaded", "ok": ADDON_MODULE in sys.modules},
                         {"name": "editor context hook registered", "ok": hooks_registered},
                         {"name": "real Add Cards editor opened", "ok": True},
+                        {"name": "selected URL replaced by one serialized iframe in shadow-root field", "ok": True},
                         {"name": "embed editor screenshot saved", "ok": screenshot_ok},
                     ],
                     "screenshot": screenshot if screenshot_ok else None,
@@ -82,7 +103,17 @@ def _run_checks() -> None:
                 add_cards._close()
                 _finish(payload)
 
-            QTimer.singleShot(3_000, capture_and_finish)
+            def checked_capture() -> None:
+                def after_saved() -> None:
+                    try:
+                        capture_and_finish()
+                    except Exception as exc:
+                        add_cards._close()
+                        _finish({"ok": False, "error": repr(exc)})
+
+                editor.call_after_note_saved(after_saved, keepFocus=True)
+
+            QTimer.singleShot(3_000, checked_capture)
 
         QTimer.singleShot(1_000, decorate_select_and_capture)
     except Exception as exc:
@@ -90,7 +121,7 @@ def _run_checks() -> None:
 
 
 def _after_profile_open() -> None:
-    QTimer.singleShot(0, _run_checks)
+    QTimer.singleShot(1_000, _run_checks)
 
 
 gui_hooks.profile_did_open.append(_after_profile_open)

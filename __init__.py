@@ -35,16 +35,34 @@ HEIGHT_PRESETS = ["320px", "480px", "600px", "720px", "900px", "50%", "75%", "10
 EDITOR_HELPERS_JS = """
 (function() {
   window.wikiEmbedSaveSelection = function() {
-    const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) {
-      window.wikiEmbedSavedRange = null;
-      return false;
+    // Anki's rich-text fields live in separate shadow roots. The document
+    // selection retargets their ranges to the field host, which would insert
+    // the iframe outside the editable note content.
+    const scopes = Array.from(document.querySelectorAll('.rich-text-editable'))
+      .map((host) => host.shadowRoot || host);
+    scopes.push(document);
+    for (const scope of scopes) {
+      const selection = typeof scope.getSelection === 'function'
+        ? scope.getSelection() : window.getSelection();
+      if (!selection || selection.rangeCount === 0) continue;
+      const range = selection.getRangeAt(0);
+      const ancestor = range.commonAncestorContainer;
+      const editable = ancestor.nodeType === Node.ELEMENT_NODE
+        ? ancestor.closest('[contenteditable="true"]')
+        : ancestor.parentElement && ancestor.parentElement.closest('[contenteditable="true"]');
+      if (!editable || !scope.contains(ancestor)) continue;
+      window.wikiEmbedSavedRange = range.cloneRange();
+      window.wikiEmbedSavedSelection = selection;
+      window.wikiEmbedSavedEditable = editable;
+      return true;
     }
-    window.wikiEmbedSavedRange = selection.getRangeAt(0).cloneRange();
-    return true;
+    window.wikiEmbedSavedRange = null;
+    window.wikiEmbedSavedSelection = null;
+    window.wikiEmbedSavedEditable = null;
+    return false;
   };
   window.wikiEmbedRestoreSelection = function() {
-    const selection = window.getSelection();
+    const selection = window.wikiEmbedSavedSelection;
     if (!selection || !window.wikiEmbedSavedRange) {
       return false;
     }
@@ -56,7 +74,7 @@ EDITOR_HELPERS_JS = """
     if (!window.wikiEmbedRestoreSelection()) {
       return false;
     }
-    const selection = window.getSelection();
+    const selection = window.wikiEmbedSavedSelection;
     if (!selection || selection.rangeCount === 0) {
       return false;
     }
@@ -79,6 +97,7 @@ EDITOR_HELPERS_JS = """
       selection.removeAllRanges();
       selection.addRange(after);
     }
+    window.wikiEmbedSavedEditable.dispatchEvent(new InputEvent('input', {bubbles: true}));
     return true;
   };
   window.wikiEmbedState = window.wikiEmbedState || {};

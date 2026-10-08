@@ -1,11 +1,11 @@
 {
   "package": "web_embed_tools",
   "name": "Web Embed Tools",
-  "mod": 1783883302,
+  "mod": 1791487929,
   "min_point_version": 250900,
   "max_point_version": 250904,
   "author": "Elvis Sik",
-  "human_version": "0.2.0",
+  "human_version": "0.2.1",
   "description": "Convert URLs into resizable embedded web views inside Anki notes.",
   "homepage": "https://github.com/ritornello-labs/anki-web-embed-tools"
 }

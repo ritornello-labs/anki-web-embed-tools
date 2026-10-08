@@ -11,10 +11,12 @@ Every listing includes the Ritornello banner, gallery invitation, stable support
 ### Web Embed Tools
 
 - Listing: `release/ankiweb.md`
-- Copy SHA-256: `ea3d9ab7090b56c79411b9b6d08d37472add97a3098235d147573c758807cde4`
-- Candidate SHA-256: `2d53136b7af1844a0656609033d5c398f11511be83680e5895610917fb7c587b`
+- Copy SHA-256: `76bbb2727158d6622928037d8fa514bb9fcfd91bf87b13c7259b02be7cfab8a0`
+- Candidate SHA-256: `8f3b7633f0d8ac2eaa3120575e7b04ba2a7883750bce6a512f0ce6360b27a94d`
 - Approval: awaiting approval
-- GIF `web-embed-tools/resize.gif`: `7b82b8d51cd2619b76b9c2e87b8077674ffdafad748ceb2a3d7fad6e70ccef68`
+
+- GIF `web-embed-tools/create.gif`: `82efdd02e5f3f2e4ba158851b48d6ffc03bd71329e9b2b9e0df8148f43d64c30`
+- GIF `web-embed-tools/resize.gif`: `7c12f5af125c2d4118b10c695729f900ff201dec6afaab5c1f44fb48df7883f2`
 
 ## Upload procedure
 
@@ -28,4 +30,8 @@ For add-ons installed directly from GitHub release files, release notes must exp
 
 ## Verification
 
-29 tests passed (one environment-dependent skip). Native workbench opened a real Add Cards editor, loaded Wikipedia and used its width toolbar. Manifest/archive checks passed.
+29 unit checks passed (one environment-dependent skip). The native regression verifies selected URLs become one serialized iframe in the note field. Separate recorded interactions use the real context menu and six width/height toolbar clicks; every step keeps the whole iframe visible with no outer field overflow. Manifest/archive and exact-byte publication checks passed.
+
+## October 8 revised motion batch and insertion fix
+
+Version 0.2.1 replaces the rejected static resize example with two native recordings: URL typing and the real Create Embed from URL menu action; four width reductions and two height reductions with the entire iframe and editor field visible throughout. A taller editor prevents outer clipping. Captures use a disposable unsaved note, with no personal collection or Publisher access. The selected-URL recording exposed a shadow-root selection bug; insertion now replaces the URL inside Anki's editable content and notifies the editor to serialize the embed. The 0.2.1 candidate includes that fix. Exact copy, both GIFs, and the changed candidate require fresh approval. No public upload or AnkiWeb submission.

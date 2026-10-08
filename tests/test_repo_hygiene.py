@@ -118,7 +118,7 @@ class RepositoryHygieneTest(unittest.TestCase):
     def test_manifest_has_public_release_metadata(self) -> None:
         manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual("web_embed_tools", manifest["package"])
-        self.assertEqual("0.2.0", manifest["human_version"])
+        self.assertEqual("0.2.1", manifest["human_version"])
         self.assertEqual(250900, manifest["min_point_version"])
         self.assertEqual(250904, manifest["max_point_version"])
         self.assertNotIn("min_anki_version", manifest)

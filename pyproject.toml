@@ -1,6 +1,6 @@
 [project]
 name = "anki-web-embed-tools"
-version = "0.2.0"
+version = "0.2.1"
 description = "Anki add-on for resizable embedded web views in note fields."
 requires-python = ">=3.10"
 dependencies = []

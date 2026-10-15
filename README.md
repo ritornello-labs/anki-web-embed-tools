@@ -1,5 +1,7 @@
 <h1 align="center">✨ Web Embed Tools</h1>
 
+[Explore all Ritornello decks and add-ons](https://ritornello.dev/).
+
 <p align="center">Turn a link in an Anki note into a tidy, resizable web view.</p>
 
 <p align="center">
@@ -13,11 +15,13 @@ Web Embed Tools adds a small editor workflow for placing web pages directly in
 Anki note fields. It keeps the stored HTML simple, while the editor provides a
 floating toolbar for choosing and resizing an embed.
 
-![Turn a selected URL into a loaded web embed in Anki](https://ritornello.dev/media/ankiweb/2026-07-31-v2/web-embed-tools/preview.gif)
+![Generate a web embed from a selected URL](https://ritornello.dev/media/ankiweb/2026-10-07-v7/web-embed-tools/create.gif)
+
+![Resize a fully visible embed in the editor](https://ritornello.dev/media/ankiweb/2026-10-07-v7/web-embed-tools/resize.gif)
 
 [Browse the full media gallery](https://ritornello.dev/#web-embed-tools).
 
-Version 0.2.1 is prepared for release with a fix for selected-URL insertion in modern Anki editors; the published installer remains 0.2.0 until release.
+Version 0.2.1 is published with a fix for selected-URL insertion in modern Anki editors. AnkiWeb installs update automatically; GitHub file installs require a manual update.
 
 ## Install
 
